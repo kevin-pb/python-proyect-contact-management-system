@@ -20,17 +20,17 @@ def ui():
                 print(db.read_db())
             
             elif int(option) == 2:
-                db.write_db(input("Enter an identifier of the contact: ") + ":" + str(db.dictionary_define(input("Enter the name of the contact: "), input("Enter the phone number the contact: "), input("Enter the email of the contact: "))))
+                db.write_db("'" + input("Enter an identifier of the contact: ") + "'" + ":" + str(db.dictionary_define(input("Enter the name of the contact: "), input("Enter the phone number the contact: "), input("Enter the email of the contact: "))))
             
             elif int(option) == 3:
                 try:
-                    db.delete(int(input("Enter the identifier of the contact: ")))
+                    db.delete(input("Enter the identifier of the contact: "))                    
                 except ValueError:
-                    db.delete(input("Enter the identifier of the contact: "))
+                    db.delete(int(input("Enter the identifier of the contact: ")))
             
             elif int(option) == 4:
                 try:
-                    db.overwrite(int(input("Enter the identifier of the contact: ")), db.write_db(input("Enter a new identifier of the contact: ") + ":" + str(db.dictionary_define(input("Enter the new name of the contact: "), input("Enter the new phone number the contact: "), input("Enter the new email of the contact: ")))))
-                except ValueError:
-                    db.overwrite(input("Enter the identifier of the contact: ")), db.write_db(input("Enter a new identifier of the contact: ") + ":" + str(db.dictionary_define(input("Enter the new name of the contact: "), input("Enter the new phone number the contact: "), input("Enter the new email of the contact: "))))
+                    db.overwrite(input("Enter the identifier of the contact: "), str(db.dictionary_define(input("Enter the new name of the contact: "), input("Enter the new phone number the contact: "), input("Enter the new email of the contact: "))))   
+                except ValueError: 
+                    db.overwrite(int(input("Enter the identifier of the contact: ", str(db.dictionary_define(input("Enter the new name of the contact: "), input("Enter the new phone number the contact: "), input("Enter the new email of the contact: "))))))
 ui()
