@@ -52,6 +52,16 @@ def overwrite(identifier, overwrite, direction="db\contacts.txt"):
     database_read = str(database_read_like_dictionary)
     database_read = database_read[1:len(database_read)-1]
     
+    database_read_prosesed = ""
+    for i,v in enumerate(database_read):
+        if v == "," and database_read[i+1] == "}":
+            database_read_prosesed = database_read_prosesed + v + database_read[i+1] + "\n"
+        
+        elif v == "}" and database_read[i+1] == "," and database_read[i+2] == "\n":
+            pass
+        
+        else:
+            database_read_prosesed = database_read_prosesed + v
 
-    contacts.write(database_read)
+    contacts.write(database_read_prosesed)
     contacts.close
