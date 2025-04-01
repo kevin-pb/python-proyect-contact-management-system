@@ -1,67 +1,40 @@
 import ast
 
 def read_db(direction="db\contacts.txt"):
-    contacts = open(direction, "r")
-    contacts_read = contacts.read()
-    contacts.close
-    return contacts_read
+    with open(direction, "r") as contacts:
+        return contacts.read().strip()
 
 def read_db_like_dictionary(direction="db\contacts.txt"):
-    contacts = open(direction, "r")
-    contacts_read = contacts.read()
-    contacts_read = "{" + contacts_read + "}"
-    contacts_read = ast.literal_eval(contacts_read)
-    contacts.close
-    return contacts_read
+    with open(direction, "r") as contacts:
+        contacts_read = "{" + contacts.read().strip() + "}"
+    return ast.literal_eval(contacts_read) if contacts_read != "{}" else {}
 
 def write_db(thing_to_write, direction="db\contacts.txt"):
-    contacts = open(direction, "a")
-    if read_db() != "":    
-        contacts.write("," + "\n" + str(thing_to_write))
-    if read_db() == "":    
-        contacts.write(str(thing_to_write))
-    contacts.close
-    
+    with open(direction, "a") as contacts:
+        if read_db():    
+            contacts.write(",\n" + str(thing_to_write))
+        else:    
+            contacts.write(str(thing_to_write))
+
 def get_db_lines(direction="db\contacts.txt"):
-    contacts = open(direction, "r")   
-    contacts_lines = contacts.readlines()
-    contacts.close
-    return contacts_lines
+    with open(direction, "r") as contacts:  
+        return contacts.readlines()
 
 def dictionary_define(name, phone_number, email):
-    dictionary = {"name": name, "phone_number": phone_number, "email": email}
-    return dictionary
+    return {"name": name, "phone_number": phone_number, "email": email}
 
 def delete(thing_to_delete, direction="db\contacts.txt"):
     database_read_like_dictionary = read_db_like_dictionary()
-    del database_read_like_dictionary[thing_to_delete]
+    if thing_to_delete in database_read_like_dictionary:
+        del database_read_like_dictionary[thing_to_delete]
     
-    contacts = open(direction, "w")
-    database_read = str(database_read_like_dictionary)
-    database_read = database_read[1:len(database_read)-1]
-    
-
-    contacts.write(database_read)
-    contacts.close
+    with open(direction, "w") as contacts:
+        contacts.write(",\n".join(f"'{k}':{v}" for k, v in database_read_like_dictionary.items()))
 
 def overwrite(identifier, overwrite, direction="db\contacts.txt"):
     database_read_like_dictionary = read_db_like_dictionary()
     database_read_like_dictionary[identifier] = overwrite
     
-    contacts = open(direction, "w")
-    database_read = str(database_read_like_dictionary)
-    database_read = database_read[1:len(database_read)-1]
-    
-    database_read_prosesed = ""
-    for i,v in enumerate(database_read):
-        if v == "," and database_read[i+1] == "}":
-            database_read_prosesed = database_read_prosesed + v + database_read[i+1] + "\n"
-        
-        elif v == "}" and database_read[i+1] == "," and database_read[i+2] == "\n":
-            pass
-        
-        else:
-            database_read_prosesed = database_read_prosesed + v
-
-    contacts.write(database_read_prosesed)
-    contacts.close
+    with open(direction, "w") as contacts:
+        formatted_entries = [f"'{k}':{v}" for k, v in database_read_like_dictionary.items()]
+        contacts.write(",\n".join(formatted_entries))
