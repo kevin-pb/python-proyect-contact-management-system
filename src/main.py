@@ -1,4 +1,4 @@
-import src.lib.dbOperations as db 
+import lib.dbOperations as db 
 
 def ui():
     while True:
