@@ -11,7 +11,7 @@ Develop a contact management system to add, remove, update, and view contact inf
 
 - It should display all contacts.
 
-## **Example: **
+## Example: 
 
 ![ImageExample](./rsc/CaptureExample.PNG)
 
@@ -49,8 +49,41 @@ No external libraries required.
 - Persist data: Consider using a database for more robust storage in a real application.
 
 ## Project
-A continuación mostraré el proyecto en ejecución:
+Next I will show the running project:
 
-Al ejecutar veras esto:
+![Capture1](./rsc/Capture1.PNG)
+Below I will show each function one by one:
+
+Function 1:
+
+![Capture2](./rsc/Capture2.PNG)
+Show all the contacts in the data base
+
+Function 2:
+
+![Capture3](./rsc/Capture3.PNG)
+Add a coctact to the data base
+
+Function 3:
+
+![Capture4](./rsc/Capture4.PNG)
+Delete a contact from the database
+
+Function 4:
+
+![Capture5](./rsc/Capture5.PNG)
+Overwrite the information of a contact
+
+## Architecture
+
+The project is divided into three folders: db (database), rsc (resources), and src (source code). The db folder contains a .txt file with a list of contacts. In the rsc folder, there are images used in the README. The src folder contains the lib directory, which includes a module for working with the database (dbOperations.py), and the main.py file, which is the executable file. It contains a function that uses all the functions from the dbOperations.py module to shape the program.
 
 ## References
+
+- Installation
+Clone the repository:
+
+git clone https://github.com/kevin-pb/python-proyect-contact-management-system.git
+
+- Run
+python main.py

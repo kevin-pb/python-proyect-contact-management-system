@@ -1,6 +1,6 @@
 import lib.dbOperations as db 
 
-def ui():
+def main():
     while True:
         if db.read_db() == "":
             identifier = input("Enter an identifier of the contact: ")
@@ -54,4 +54,4 @@ def ui():
             else:
                 print("Invalid option. Please choose a valid number.")
 
-ui()
+main()
